@@ -98,7 +98,7 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={formStatus !== 'idle'}
-                className="mt-2 w-full glass-panel glass-panel-hover bg-foreground/5 py-4 rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-foreground hover:text-background transition-all group disabled:opacity-70 disabled:pointer-events-none"
+                className="mt-2 w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all group disabled:opacity-70 disabled:pointer-events-none border border-foreground/15 bg-foreground/8 text-foreground hover:bg-foreground hover:text-background dark:hover:bg-foreground dark:hover:text-background"
               >
                 {formStatus === 'idle' && (
                   <>

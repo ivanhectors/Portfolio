@@ -4,6 +4,8 @@ export interface Project {
   id: string;
   title: string;
   client: string;
+  /** URL of the client's website — shown as a hyperlink in the modal */
+  clientUrl?: string;
   industry: string;
   type: ProjectType;
   description: string;
@@ -12,7 +14,12 @@ export interface Project {
   color: string;
   accentColor: string;
   images: string[]; // Replace with real screenshot paths, e.g. '/screenshots/project-1.png'
-  link?: string;
+  /** Live website URL (opens in new tab) */
+  siteUrl?: string;
+  /** Apple App Store URL */
+  appStoreUrl?: string;
+  /** Google Play Store URL */
+  playStoreUrl?: string;
   highlight: boolean;
 }
 
