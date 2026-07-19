@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import { Home } from './pages/Home';
+import { WorkPage } from './pages/WorkPage';
 
 function App() {
   const [mounted, setMounted] = useState(false);
@@ -15,19 +16,17 @@ function App() {
   }
 
   return (
-    <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <NextThemesProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <div className="relative min-h-screen w-full overflow-hidden selection:bg-primary/30">
-          {/* Background Orbs */}
-          <div className="orb orb-1" />
-          <div className="orb orb-2" />
-          <div className="orb orb-3" />
-          
           <Switch>
             <Route path="/" component={Home} />
+            <Route path="/work" component={WorkPage} />
             <Route>
               <div className="min-h-screen flex items-center justify-center">
-                <div className="glass-panel p-8 rounded-2xl text-center">
+                <div className="orb orb-1" />
+                <div className="orb orb-2" />
+                <div className="glass-panel p-8 rounded-2xl text-center relative z-10">
                   <h1 className="text-2xl font-bold mb-2">404 - Not Found</h1>
                   <p className="text-muted-foreground">The page you're looking for doesn't exist.</p>
                 </div>

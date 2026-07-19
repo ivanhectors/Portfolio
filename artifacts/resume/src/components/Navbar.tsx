@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'wouter';
 
 const NAV_LINKS = [
   { name: 'About', href: '#about' },
@@ -55,6 +56,12 @@ export function Navbar() {
               {link.name}
             </a>
           ))}
+          <Link
+            href="/work"
+            className="text-sm font-medium px-4 py-1.5 rounded-full glass-panel text-foreground/80 hover:text-foreground transition-colors"
+          >
+            All Work
+          </Link>
           <ThemeToggle />
         </nav>
 
@@ -90,6 +97,13 @@ export function Navbar() {
                 {link.name}
               </a>
             ))}
+            <Link
+              href="/work"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-lg font-medium text-foreground/80 hover:text-foreground"
+            >
+              All Work
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
