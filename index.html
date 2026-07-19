@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ivan Sinambela — Portfolio</title>
+    <title>Julian Design — Portfolio</title>
     
     <!-- Google Fonts & Tailwind CSS v4 via CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,323 +12,660 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
-        /* Base Setup & Premium Font */
         body {
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
-        /* LIGHT MODE - Soft pearl/silver-white gradient feel */
+        /* Theme variables mapping the exact look */
         :root {
             --background: 210 20% 98%;
             --foreground: 220 10% 10%;
+            --card-bg: 255 255 255;
+            --card-border: 214 32% 91%;
             --glass-panel-rgb: 255 255 255;
-            --glass-opacity: 0.65;
-            --glass-border-rgb: 255 255 255;
-            --glass-border-opacity: 0.8;
-            --orb-1: #e0e7ff;
-            --orb-2: #f3e8ff;
-            --orb-3: #c7d2fe;
+            --glass-opacity: 0.7;
+            --orb-1: #e0e7ff; --orb-2: #f3e8ff; --orb-3: #c7d2fe;
         }
-
-        /* DARK MODE - Deep navy-to-midnight gradient */
         html.dark {
             --background: 222 47% 4%;
             --foreground: 210 40% 98%;
+            --card-bg: 222 47% 6%;
+            --card-border: 217 33% 18%;
             --glass-panel-rgb: 20 25 40;
-            --glass-opacity: 0.4;
-            --glass-border-rgb: 255 255 255;
-            --glass-border-opacity: 0.1;
-            --orb-1: #1e1b4b;
-            --orb-2: #0f172a;
-            --orb-3: #172554;
+            --glass-opacity: 0.45;
+            --orb-1: #1e1b4b; --orb-2: #0f172a; --orb-3: #172554;
         }
 
-        body {
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-        }
+        body { background-color: hsl(var(--background)); color: hsl(var(--foreground)); }
 
-        /* Premium Glassmorphism Panel Effect */
         .glass-panel {
             background: rgba(var(--glass-panel-rgb) / var(--glass-opacity));
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(var(--glass-border-rgb) / var(--glass-border-opacity));
-            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05),
-                        inset 0 1px 0 0 rgba(255, 255, 255 / 0.15);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid hsl(var(--card-border));
         }
 
-        .glass-panel-hover:hover {
-            background: rgba(var(--glass-panel-rgb) / calc(var(--glass-opacity) + 0.15));
-            transform: translateY(-6px);
-            box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Ambient Background Floating Orbs Animations */
+        /* Animated Ambient Background Floating Orbs */
         @keyframes orb-float-1 {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(10vw, -15vh) scale(1.1); }
-            66% { transform: translate(-10vw, 15vh) scale(0.9); }
+            33% { transform: translate(8vw, -12vh) scale(1.05); }
+            66% { transform: translate(-8vw, 12vh) scale(0.95); }
         }
         @keyframes orb-float-2 {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(-15vw, 10vh) scale(0.95); }
-            66% { transform: translate(10vw, -10vh) scale(1.05); }
+            33% { transform: translate(-12vw, 8vh) scale(0.95); }
+            66% { transform: translate(8vw, -8vh) scale(1.05); }
         }
-        @keyframes orb-float-3 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(15vw, 15vh) scale(1.15); }
-            66% { transform: translate(-15vw, -15vh) scale(0.85); }
-        }
-
-        .orb {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 0;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .orb-1 {
-            width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
-            background: radial-gradient(circle, var(--orb-1) 0%, transparent 70%);
-            top: -20vh; left: -20vw; animation: orb-float-1 25s ease-in-out infinite;
-        }
-        .orb-2 {
-            width: 50vw; height: 50vw; max-width: 600px; max-height: 600px;
-            background: radial-gradient(circle, var(--orb-2) 0%, transparent 70%);
-            bottom: -10vh; right: -10vw; animation: orb-float-2 30s ease-in-out infinite;
-        }
-        .orb-3 {
-            width: 45vw; height: 45vw; max-width: 500px; max-height: 500px;
-            background: radial-gradient(circle, var(--orb-3) 0%, transparent 70%);
-            top: 30vh; left: 30vw; animation: orb-float-3 35s ease-in-out infinite;
-        }
+        .orb { position: fixed; border-radius: 50%; filter: blur(90px); z-index: 0; opacity: 0.55; pointer-events: none; }
+        .orb-1 { width: 55vw; height: 55vw; background: radial-gradient(circle, var(--orb-1) 0%, transparent 65%); top: -15vh; left: -15vw; animation: orb-float-1 22s ease-in-out infinite; }
+        .orb-2 { width: 50vw; height: 50vw; background: radial-gradient(circle, var(--orb-2) 0%, transparent 65%); bottom: -10vh; right: -10vw; animation: orb-float-2 26s ease-in-out infinite; }
+        
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .accordion-open .accordion-content { max-height: 500px; }
+        .accordion-open .chevron-icon { transform: rotate(180deg); }
     </style>
 </head>
-<body class="antialiased selection:bg-indigo-500 selection:text-white">
+<body class="antialiased">
 
-    <!-- Background Ambient Elements -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
 
+    <!-- MAIN INTERACTIVE WRAPPER -->
     <div class="relative min-h-screen z-10 flex flex-col justify-between">
         
-        <!-- Sticky Navigation Bar -->
+        <!-- STICKY TOP NAVIGATION BAR -->
         <nav class="sticky top-0 z-40 px-4 md:px-8 py-4 flex justify-center">
-            <div class="w-full max-w-6xl flex items-center justify-between glass-panel rounded-2xl px-6 py-3">
+            <div class="w-full max-w-6xl flex items-center justify-between glass-panel rounded-2xl px-6 py-3 shadow-xs">
                 <div class="flex items-center gap-4">
-                    <a href="#" class="inline-flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition-opacity">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                        Back
-                    </a>
-                    <span class="w-px h-4 bg-gray-400/20"></span>
-                    <span class="text-sm font-semibold tracking-wide">Ivan Sinambela</span>
+                    <span id="navBrand" class="text-md font-bold tracking-tight cursor-pointer">JD.</span>
                 </div>
                 
-                <!-- Dark Mode Toggle Switch Button -->
-                <button id="themeToggle" class="glass-panel p-2 rounded-xl hover:bg-gray-500/10 cursor-pointer" aria-label="Toggle Theme">
-                    <svg id="sunIcon" class="w-5 h-5 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.243 17.657l.707.707M6.343 6.344l.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>
-                    <svg id="moonIcon" class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                </button>
+                <div class="flex items-center gap-6">
+                    <!-- Nav links inside current page layout -->
+                    <div id="mainNavLinks" class="hidden md:flex items-center gap-6 text-sm font-medium opacity-75">
+                        <a href="#about" class="hover:opacity-100 transition-opacity">About</a>
+                        <a href="#experience" class="hover:opacity-100 transition-opacity">Experience</a>
+                        <a href="#projects" class="hover:opacity-100 transition-opacity">Projects</a>
+                        <a href="#skills" class="hover:opacity-100 transition-opacity">Skills</a>
+                        <a href="#contact" class="hover:opacity-100 transition-opacity">Contact</a>
+                    </div>
+                    
+                    <button id="allWorkViewBtn" class="px-3 py-1.5 text-xs font-semibold rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-all cursor-pointer">All Work</button>
+                    
+                    <!-- Theme Selector Button -->
+                    <button id="themeToggle" class="flex items-center gap-1 bg-black/5 dark:bg-white/10 p-1 rounded-full cursor-pointer w-12 relative h-6" aria-label="Toggle Theme">
+                        <div id="themeIndicator" class="absolute w-4 h-4 rounded-full bg-white dark:bg-slate-900 shadow-sm transition-all left-1 dark:left-7"></div>
+                        <svg class="w-3 h-3 text-amber-500 z-10 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 7a5 5 0 110 10 5 5 0 010-10z"/></svg>
+                        <svg class="w-3 h-3 text-indigo-400 z-10 ml-auto mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    </button>
+                </div>
             </div>
         </nav>
 
-        <!-- Main Workspace Container -->
-        <main class="px-4 md:px-8 pt-12 pb-24 max-w-6xl w-full mx-auto flex-grow">
+        <!-- SUB-PAGE ONE: PRIMARY LANDING MAIN HOME -->
+        <div id="homePage" class="w-full flex-grow block">
             
-            <!-- Page Header Introduction Section -->
-            <div class="mb-12">
-                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">System Analyst & Business Analyst Portfolio</p>
-                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">All Work & Projects</h1>
-                <p class="opacity-60 max-w-xl leading-relaxed">Enterprise architecture, technical specifications documentation, and integration products built with rigorous execution standards.</p>
-            </div>
+            <!-- HERO MAIN DISPLAY HEADER -->
+            <section class="max-w-4xl mx-auto text-center px-4 pt-24 pb-20 flex flex-col items-center justify-center min-h-[60vh]">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-xs font-medium mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Available for new opportunities
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-700 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                    Julian Design.
+                </h1>
+                <p class="text-lg md:text-xl opacity-75 max-w-xl leading-relaxed mb-10 font-normal">
+                    Crafting digital experiences with precision, motion, and quiet confidence.
+                </p>
+                <div class="flex items-center gap-4">
+                    <button onclick="document.getElementById('projects').scrollIntoView()" class="px-6 py-3 rounded-full bg-white dark:bg-slate-900 text-sm font-medium border border-gray-300 dark:border-slate-700 shadow-xs hover:bg-gray-50 dark:hover:bg-slate-800 transition-all inline-flex items-center gap-2 cursor-pointer">
+                        View Work <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                    <a href="#" class="px-6 py-3 rounded-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 text-sm font-medium hover:opacity-90 shadow-sm transition-all inline-flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Download CV
+                    </a>
+                </div>
+                <div class="mt-20 text-[10px] uppercase font-bold tracking-widest opacity-40 animate-bounce">Scroll</div>
+            </section>
 
-            <!-- Client-Side Search Engine & Industry Filter Control Bar -->
-            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
-                <div class="relative w-full sm:w-64">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 opacity-40">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    </span>
-                    <input id="searchBar" type="text" placeholder="Search projects..." class="w-full pl-9 pr-4 py-2.5 text-sm rounded-full glass-panel border-0 bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
+            <!-- ABOUT ME PROFILE SEGMENT -->
+            <section id="about" class="max-w-4xl mx-auto px-4 py-16 scroll-mt-24">
+                <div class="glass-panel rounded-3xl p-8 md:p-10 shadow-xs mb-6">
+                    <h2 class="text-2xl font-bold mb-6">About Me</h2>
+                    <p class="text-base leading-relaxed opacity-80 mb-6">
+                        I'm a senior frontend engineer and interface designer who believes software should feel physical, responsive, and crafted with intent. I bridge the gap between design and engineering, ensuring that beautiful mockups translate into performant, accessible, and delightful products.
+                    </p>
+                    <p class="text-base leading-relaxed opacity-80">
+                        My philosophy is rooted in restraint. I don't build things just because I can; I build things that solve problems elegantly. When I'm not writing code, you'll find me exploring typography, studying architecture, or tweaking the motion curves on a single button until it feels just right.
+                    </p>
                 </div>
                 
-                <!-- Category Tab Filters -->
-                <div id="filterContainer" class="flex gap-2 flex-wrap text-sm">
-                    <button class="filter-btn px-4 py-2 rounded-full font-medium bg-indigo-600 text-white shadow-md active-filter" data-category="All">All</button>
-                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="Enterprise">Enterprise</button>
-                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="Fintech">Fintech</button>
-                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="SaaS">SaaS</button>
+                <!-- KPI Counter Bar Items -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="glass-panel rounded-2xl p-5 text-center shadow-2xs">
+                        <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center rounded-lg bg-gray-500/5"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+                        <div class="text-2xl font-bold tracking-tight">8+</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Years Experience</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-5 text-center shadow-2xs">
+                        <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center rounded-lg bg-gray-500/5"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg></div>
+                        <div class="text-2xl font-bold tracking-tight">45+</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Projects Completed</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-5 text-center shadow-2xs">
+                        <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center rounded-lg bg-gray-500/5"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9h18"/></svg></div>
+                        <div class="text-2xl font-bold tracking-tight">20+</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Global Clients</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-5 text-center shadow-2xs">
+                        <div class="w-8 h-8 mx-auto mb-2 flex items-center justify-center rounded-lg bg-gray-500/5"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+                        <div class="text-2xl font-bold tracking-tight">12</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest opacity-40 mt-1">Core Technologies</div>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <p id="projectCount" class="text-xs opacity-40 mb-8">Showing 3 projects</p>
-
-            <!-- Dynamic Project Grid Rendering -->
-            <div id="projectGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- EXPERIENCE ACCORDION TIMELINE -->
+            <section id="experience" class="max-w-4xl mx-auto px-4 py-16 scroll-mt-24">
+                <h2 class="text-2xl font-bold mb-8">Experience</h2>
                 
-                <!-- Card Item 1 (Contoh Data Suite) -->
-                <div class="project-card group cursor-pointer" data-title="MAXstream Technical Architecture" data-client="Telkomsel" data-category="SaaS" data-tags="TSD Integration API Contract AWS">
-                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Web Application
-                            </span>
-                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">SaaS</span>
+                <div class="border-l-2 border-gray-200 dark:border-slate-800 ml-2 space-y-6">
+                    
+                    <!-- Accordion Item 1 (Open Default) -->
+                    <div class="accordion-item accordion-open relative pl-8" data-index="0">
+                        <div class="absolute w-3 h-3 rounded-full bg-indigo-600 left-[-7px] top-6 border border-white dark:border-slate-900"></div>
+                        <div class="glass-panel rounded-2xl p-6 shadow-2xs">
+                            <div class="flex items-center justify-between cursor-pointer accordion-trigger">
+                                <div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h3 class="text-lg font-bold">Nexus Studio</h3>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase">Current</span>
+                                    </div>
+                                    <p class="text-xs opacity-50 mt-1">2022 — Present &bull; 2 roles</p>
+                                </div>
+                                <svg class="w-5 h-5 opacity-40 chevron-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </div>
+                            
+                            <div class="accordion-content mt-4 pt-4 border-t border-gray-400/10 space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between flex-wrap gap-1">
+                                        <h4 class="text-sm font-bold opacity-90">Senior Frontend Engineer <span class="text-xs font-normal opacity-40 ml-1">LATEST</span></h4>
+                                        <span class="text-xs opacity-50">2022 — Present</span>
+                                    </div>
+                                    <p class="text-sm opacity-70 mt-2 leading-relaxed">Lead frontend architecture for high-profile client projects. Mentor junior engineers, establish design systems, and reduced initial load times across the portfolio by 40%.</p>
+                                </div>
+                                <div>
+                                    <div class="flex items-center justify-between flex-wrap gap-1">
+                                        <h4 class="text-sm font-bold opacity-90">Frontend Engineer</h4>
+                                        <span class="text-xs opacity-50">2021 — 2022</span>
+                                    </div>
+                                    <p class="text-sm opacity-70 mt-2 leading-relaxed">Shipped pixel-perfect UI components and led migration from a legacy CRA setup to Vite, cutting build times from 90s to 8s and dramatically improving DX across the team.</p>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-lg font-bold mb-1">MAXstream Technical System Design</h3>
-                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for Telkomsel</p>
-                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Perancangan arsitektur backend berskala masif, penyusunan TSD, serta standarisasi dokumentasi kontrak API untuk integrasi sistem video streaming.</p>
-                        <div class="flex flex-wrap gap-1.5 mt-auto">
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">API Contract</span>
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">AWS</span>
+                    </div>
+
+                    <!-- Accordion Item 2 -->
+                    <div class="accordion-item relative pl-8" data-index="1">
+                        <div class="absolute w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 left-[-7px] top-6 border border-white dark:border-slate-900"></div>
+                        <div class="glass-panel rounded-2xl p-6 shadow-2xs">
+                            <div class="flex items-center justify-between cursor-pointer accordion-trigger">
+                                <div>
+                                    <h3 class="text-lg font-bold">Fintech Innovations</h3>
+                                    <p class="text-xs opacity-50 mt-1">2019 — 2021 &bull; 2 roles</p>
+                                </div>
+                                <svg class="w-5 h-5 opacity-40 chevron-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </div>
+                            <div class="accordion-content space-y-4">
+                                <p class="text-sm opacity-70 mt-4 leading-relaxed">Developed core transaction dashboards using React Native and structured strict micro-frontend modules for institutional scale applications.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion Item 3 -->
+                    <div class="accordion-item relative pl-8" data-index="2">
+                        <div class="absolute w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 left-[-7px] top-6 border border-white dark:border-slate-900"></div>
+                        <div class="glass-panel rounded-2xl p-6 shadow-2xs">
+                            <div class="flex items-center justify-between cursor-pointer accordion-trigger">
+                                <div>
+                                    <h3 class="text-lg font-bold">Creative Agency Co.</h3>
+                                    <p class="text-xs opacity-50 mt-1">2016 — 2019</p>
+                                </div>
+                                <svg class="w-5 h-5 opacity-40 chevron-icon transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                            </div>
+                            <div class="accordion-content">
+                                <p class="text-sm opacity-70 mt-4 leading-relaxed">Crafted bespoke single-page dynamic applications and parallax interactive micro-sites for consumer brand campaigns.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- HIGHLIGHT PROJECTS SECTION -->
+            <section id="projects" class="max-w-6xl mx-auto px-4 py-16 scroll-mt-24">
+                <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+                    <div>
+                        <p class="text-[10px] uppercase font-bold tracking-widest opacity-40 mb-1">Portfolio</p>
+                        <h2 class="text-2xl font-bold">Highlight Projects</h2>
+                        <p class="text-sm opacity-60 mt-1">A curated selection of client work — mobile apps, web platforms, and everything in between.</p>
+                    </div>
+                    <button onclick="openAllWorkView()" class="px-4 py-2 text-xs font-semibold rounded-full border border-gray-300 dark:border-slate-700 glass-panel hover:bg-gray-100 dark:hover:bg-slate-800 inline-flex items-center gap-1.5 cursor-pointer">
+                        View All Work <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Project item 1 (Custom colored look from screenshot) -->
+                    <div class="glass-panel rounded-3xl p-6 shadow-3xs flex flex-col justify-between bg-gradient-to-br from-indigo-500/5 to-transparent border-indigo-500/20 cursor-pointer hover:-translate-y-1 transition-transform" onclick="triggerCaseStudyModal('Orbit Workspace')">
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-indigo-500/10 text-indigo-500 inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>Mobile</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-500/10 opacity-60">Fintech</span>
+                            </div>
+                            <h3 class="text-lg font-bold">FinVault Mobile</h3>
+                            <p class="text-xs opacity-50 mt-0.5">for FinServe Corp</p>
+                            <p class="text-sm opacity-70 mt-4 leading-relaxed line-clamp-3">A wealth management app enabling institutional investors to monitor portfolios, execute trades, and receive AI-driven insights — all from their...</p>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">React Native</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">TypeScript</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">Skia</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-40 rounded-full font-medium">+2</span>
+                            </div>
+                            <div class="flex items-center justify-between text-xs font-semibold opacity-60">
+                                <span>Click to view details</span>
+                                <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-white"><svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project item 2 -->
+                    <div class="glass-panel rounded-3xl p-6 shadow-3xs flex flex-col justify-between cursor-pointer hover:-translate-y-1 transition-transform" onclick="triggerCaseStudyModal('Lumina Storefront')">
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-500/10 text-rose-500 inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>Web</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-500/10 opacity-60">E-commerce</span>
+                            </div>
+                            <h3 class="text-lg font-bold">Lumina Storefront</h3>
+                            <p class="text-xs opacity-50 mt-0.5">for Lumina Beauty</p>
+                            <p class="text-sm opacity-70 mt-4 leading-relaxed line-clamp-3">A high-performance e-commerce flagship for a luxury beauty brand, featuring 3D product visualization, seamless Shopify integration, an...</p>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">Next.js</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">Three.js</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">Shopify</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-40 rounded-full font-medium">+2</span>
+                            </div>
+                            <span class="text-xs font-semibold opacity-40">Click to view details</span>
+                        </div>
+                    </div>
+
+                    <!-- Project item 3 -->
+                    <div class="glass-panel rounded-3xl p-6 shadow-3xs flex flex-col justify-between cursor-pointer hover:-translate-y-1 transition-transform" onclick="triggerCaseStudyModal('HealthTrack Pro')">
+                        <div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-500 inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>Mobile</span>
+                                <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-500/10 opacity-60">Healthcare</span>
+                            </div>
+                            <h3 class="text-lg font-bold">HealthTrack Pro</h3>
+                            <p class="text-xs opacity-50 mt-0.5">for MediSync Health</p>
+                            <p class="text-sm opacity-70 mt-4 leading-relaxed line-clamp-3">A chronic disease management app for patients and care teams. Enables medication adherence tracking, symptom logging, and direct...</p>
+                        </div>
+                        <div class="mt-6">
+                            <div class="flex flex-wrap gap-1.5 mb-4">
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">React Native</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">HIPAA</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">HealthKit</span>
+                                <span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-40 rounded-full font-medium">+2</span>
+                            </div>
+                            <span class="text-xs font-semibold opacity-40">Click to view details</span>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Card Item 2 -->
-                <div class="project-card group cursor-pointer" data-title="BNI Life System Integration" data-client="Bank BNI Life" data-category="Fintech" data-tags="Technical Proposal System Architecture Firebase">
-                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Mobile Application
-                            </span>
-                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">Fintech</span>
+            <!-- CAPABILITIES SKILLS MODULE -->
+            <section id="skills" class="max-w-4xl mx-auto px-4 py-16 scroll-mt-24">
+                <h2 class="text-2xl font-bold mb-8">Capabilities</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-sm font-bold opacity-50 mb-4">Languages</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">JavaScript (ES6+)</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">TypeScript</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">HTML5</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">CSS3/Sass</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Python</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">GraphQL</span>
                         </div>
-                        <h3 class="text-lg font-bold mb-1">Bancassurance Core Integration</h3>
-                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for Bank BNI Life</p>
-                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Penyusunan proposal teknis komprehensif, pemetaan arsitektur lanskap bisnis perbankan, dan perencanaan sistem otomasi data klaim.</p>
-                        <div class="flex flex-wrap gap-1.5 mt-auto">
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Architecture</span>
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Firebase</span>
+                    </div>
+                    
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-sm font-bold opacity-50 mb-4">Frameworks & Libraries</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">React</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Next.js</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Vue</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">React Native</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Tailwind CSS</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Framer Motion</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Three.js</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-sm font-bold opacity-50 mb-4">Tools & Platforms</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Git</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Vite</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Webpack</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Figma</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Vercel</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">AWS</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Docker</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-sm font-bold opacity-50 mb-4">Concepts</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Responsive Design</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Accessibility (a11y)</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Performance Optimization</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Design Systems</span>
+                            <span class="px-3 py-1.5 rounded-xl bg-gray-500/5 border border-gray-400/10 text-xs font-medium">Micro-interactions</span>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Card Item 3 -->
-                <div class="project-card group cursor-pointer" data-title="Samator Automation Tracker" data-client="PT Samator Indo Gas" data-category="Enterprise" data-tags="Google Apps Script System Landscape Automation">
-                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Web Application
-                            </span>
-                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">Enterprise</span>
+            <!-- CONTACT FORM INTEGRATION -->
+            <section id="contact" class="max-w-4xl mx-auto px-4 py-16 scroll-mt-24">
+                <div class="flex flex-col md:flex-row gap-10 items-start">
+                    <div class="flex-1">
+                        <h2 class="text-4xl font-bold tracking-tight mb-6">Let's build something extraordinary.</h2>
+                        <p class="opacity-70 leading-relaxed mb-8">
+                            I'm currently available for freelance projects and open to full-time opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                        </p>
+                        <div class="space-y-4 font-medium text-sm">
+                            <a href="mailto:hello@example.com" class="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity"><div class="w-9 h-9 glass-panel rounded-full flex items-center justify-center shadow-2xs"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div> hello@example.com</a>
+                            <a href="#" class="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity"><div class="w-9 h-9 glass-panel rounded-full flex items-center justify-center shadow-2xs"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.8v8.37h2.8v-4.67c0-.25.02-.5.1-.68a1.14 1.14 0 0 1 1-.77c.76 0 1 .52 1 1.3v4.82h2.8M6.5 8.37a1.37 1.37 0 1 0 0-2.75 1.37 1.37 0 0 0 0 2.75M8 18.5V10.13H5v8.37h3z"/></svg></div> LinkedIn Profile</a>
+                            <a href="#" class="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity"><div class="w-9 h-9 glass-panel rounded-full flex items-center justify-center shadow-2xs"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.35-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg></div> GitHub Repo</a>
                         </div>
-                        <h3 class="text-lg font-bold mb-1">Industrial Supply Chain Analytics</h3>
-                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for PT Samator Indo Gas</p>
-                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Pengembangan sistem pelacakan otomatis data operasional menggunakan optimasi skrip sinkronisasi internal dan visualisasi dasbor terpadu.</p>
-                        <div class="flex flex-wrap gap-1.5 mt-auto">
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Apps Script</span>
-                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Automation</span>
-                        </div>
+                    </div>
+                    
+                    <div class="w-full md:w-96 glass-panel rounded-3xl p-6 shadow-xs">
+                        <form onsubmit="event.preventDefault();" class="space-y-4 text-xs font-semibold">
+                            <div>
+                                <label class="opacity-60 block mb-1">Name</label>
+                                <input type="text" placeholder="John Doe" class="w-full p-3 rounded-xl border border-gray-400/20 bg-gray-500/5 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="opacity-60 block mb-1">Email</label>
+                                <input type="email" placeholder="john@example.com" class="w-full p-3 rounded-xl border border-gray-400/20 bg-gray-500/5 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm">
+                            </div>
+                            <div>
+                                <label class="opacity-60 block mb-1">Message</label>
+                                <textarea rows="4" placeholder="How can I help you?" class="w-full p-3 rounded-xl border border-gray-400/20 bg-gray-500/5 focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm font-normal"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:opacity-90 flex items-center justify-center gap-1.5 cursor-pointer text-sm font-semibold transition-opacity">Send Message <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SUB-PAGE TWO: "ALL WORK" ARCHIVE VIEWER PAGE (HIDDEN BY DEFAULT) -->
+        <div id="allWorkPage" class="w-full flex-grow hidden scroll-mt-24">
+            <section class="max-w-6xl mx-auto px-4 pt-12 pb-24">
+                <div class="mb-8">
+                    <p class="text-[10px] uppercase font-bold tracking-widest opacity-40 mb-1">Complete Portfolio</p>
+                    <h1 class="text-4xl font-bold tracking-tight mb-2">All Work</h1>
+                    <p class="text-sm opacity-60">Every project, every client, every industry. Filter by sector to find relevant case studies.</p>
+                </div>
+
+                <!-- Live Filters Engine Controls Bar -->
+                <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center mb-8">
+                    <div class="relative w-full sm:w-64">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 opacity-40"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
+                        <input id="archiveSearch" type="text" placeholder="Search projects..." class="w-full pl-9 pr-4 py-2 text-sm rounded-xl glass-panel border-0 bg-transparent focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                    </div>
+                    <div id="archiveFilterButtons" class="flex gap-1.5 flex-wrap text-xs font-semibold">
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black shadow-xs" data-cat="All">All</button>
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full glass-panel opacity-70 hover:opacity-100" data-cat="Fintech">Fintech</button>
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full glass-panel opacity-70 hover:opacity-100" data-cat="E-commerce">E-commerce</button>
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full glass-panel opacity-70 hover:opacity-100" data-cat="Healthcare">Healthcare</button>
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full glass-panel opacity-70 hover:opacity-100" data-cat="SaaS">SaaS</button>
+                        <button class="arch-filter-btn px-3 py-1.5 rounded-full glass-panel opacity-70 hover:opacity-100" data-cat="Transportation">Transportation</button>
                     </div>
                 </div>
 
+                <p id="archiveCount" class="text-xs opacity-40 mb-6">8 projects across all industries</p>
+
+                <!-- Grid Data Container -->
+                <div id="archiveGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cards will display here dynamically managed by JavaScript Array -->
+                </div>
+            </section>
+        </div>
+
+        <!-- GLOBAL DETAILED CASE STUDY POPUP MODAL -->
+        <div id="caseStudyModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm hidden animate-fade-in" onclick="closeCaseStudyModal()">
+            <div class="glass-panel w-full max-w-xl rounded-3xl p-6 shadow-2xl relative bg-white dark:bg-slate-900 overflow-y-auto max-h-[90vh]" onclick="event.stopPropagation()">
+                <button class="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-500/10 hover:bg-gray-500/20 flex items-center justify-center cursor-pointer transition-all" onclick="closeCaseStudyModal()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                
+                <div id="modalContentSlot">
+                    <!-- Loaded dynamically via Script Object mapping -->
+                </div>
             </div>
+        </div>
 
-            <!-- Empty State Display -->
-            <div id="emptyState" class="hidden glass-panel rounded-2xl p-16 text-center mt-6">
-                <p class="opacity-40 text-lg font-medium">No projects found</p>
-                <p class="opacity-30 text-sm mt-1">Try a different search term or clear the current active filter.</p>
-            </div>
-        </main>
-
-        <!-- Footer Segment -->
-        <footer class="w-full text-center py-6 border-t border-gray-500/10 text-xs opacity-40">
-            <p>&copy; 2026 Ivan Sinambela. All Rights Reserved. Built with precision styling.</p>
+        <!-- FOOTER SEGMENT BAR -->
+        <footer class="w-full max-w-6xl mx-auto px-4 py-8 border-t border-gray-400/10 flex flex-col sm:flex-row items-center justify-between text-xs opacity-40 gap-2">
+            <p>&copy; 2026 Julian Design. All rights reserved.</p>
+            <p>Crafted with intent.</p>
         </footer>
     </div>
 
-    <!-- Core Runtime JavaScript Engine for Client Interaction (UX) -->
+    <!-- MAIN CONTROL CORE RUNTIME SCRIPT -->
     <script>
-        // DOM Handles Identification
-        const htmlElement = document.documentElement;
-        const themeToggleBtn = document.getElementById('themeToggle');
-        const sunIcon = document.getElementById('sunIcon');
-        const moonIcon = document.getElementById('moonIcon');
-        const searchBar = document.getElementById('searchBar');
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
-        const projectCountLabel = document.getElementById('projectCount');
-        const emptyStateContainer = document.getElementById('emptyState');
+        // Data Array Store matching the complete mock portfolio
+        const ALL_PROJECTS = [
+            { id: 1, title: 'FinVault Mobile', client: 'FinServe Corp', category: 'Fintech', platform: 'Mobile', desc: 'A wealth management app enabling institutional investors to monitor portfolios, execute trades, and receive AI-driven insights.', featured: true, tags: ['React Native', 'TypeScript', 'Skia'], color: 'from-indigo-500/10' },
+            { id: 2, title: 'Lumina Storefront', client: 'Lumina Beauty', category: 'E-commerce', platform: 'Web', desc: 'A high-performance e-commerce flagship for a luxury beauty brand, featuring 3D product visualization and seamless Shopify integration.', featured: true, tags: ['Next.js', 'Three.js', 'Shopify'], color: 'from-rose-500/10' },
+            { id: 3, title: 'HealthTrack Pro', client: 'MediSync Health', category: 'Healthcare', platform: 'Mobile', desc: 'A chronic disease management app for patients and care teams. Enables medication adherence tracking and direct care team logs.', featured: true, tags: ['React Native', 'HIPAA', 'HealthKit'], color: 'from-emerald-500/10' },
+            { id: 4, title: 'Orbit Workspace', client: 'Acme SaaS', category: 'SaaS', platform: 'Web', desc: 'A real-time collaborative document editor with multiplayer cursors, block-based rich text, and deep integrations with Slack, Notion, and GitHub.', featured: false, tags: ['React', 'Yjs', 'ProseMirror', 'WebSockets', 'GraphQL'], insights: ['Implemented CRDT-based conflict resolution using Yjs.', 'Built a plugin architecture allowing custom block types with zero core bundle impact.', 'WebSocket infrastructure supports 500+ concurrent collaborators.', 'Reduced customer tool sprawl by 60% — average team replaced 3 separate SaaS subscriptions.', 'Full offline mode with background sync on reconnect.'] },
+            { id: 5, title: 'Velocity EV', client: 'Velocity Motors', category: 'Transportation', platform: 'Mobile', desc: 'Companion app for electric vehicle owners, providing real-time charging status, intelligent route planning, and remote security controls.', featured: false, tags: ['Flutter', 'Dart', 'gRPC', 'Mapbox'] },
+            { id: 6, title: 'Nexus CRM', client: 'Nexus Ventures', category: 'SaaS', platform: 'Web', desc: 'A deal-flow CRM purpose-built for venture capital firms — replacing spreadsheets with a clean pipeline view and portfolio analytics.', featured: false, tags: ['Vue.js', 'Tailwind', 'PostgreSQL'] }
+        ];
 
-        let currentActiveCategory = 'All';
-        let currentSearchString = '';
+        // UI Target Element Selectors
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIndicator = document.getElementById('themeIndicator');
+        const allWorkViewBtn = document.getElementById('allWorkViewBtn');
+        const navBrand = document.getElementById('navBrand');
+        const homePage = document.getElementById('homePage');
+        const allWorkPage = document.getElementById('allWorkPage');
+        const mainNavLinks = document.getElementById('mainNavLinks');
+        const archiveGrid = document.getElementById('archiveGrid');
+        const archiveSearch = document.getElementById('archiveSearch');
+        const archFilterButtons = document.querySelectorAll('.arch-filter-btn');
+        const archiveCount = document.getElementById('archiveCount');
+        const modal = document.getElementById('caseStudyModal');
+        const modalContentSlot = document.getElementById('modalContentSlot');
 
-        // Dynamic Engine Theme Customizing
-        themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
+        let activeCategory = 'All';
+        let searchQuery = '';
+
+        // Theme Toggle Engine Logic
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                themeIndicator.style.left = '4px';
             } else {
-                htmlElement.classList.add('dark');
-                moonIcon.classList.add('hidden');
-                sunIcon.classList.remove('hidden');
+                html.classList.remove('light');
+                html.classList.add('dark');
+                themeIndicator.style.left = '28px';
             }
         });
 
-        // Search & Filter Execution Kernel
-        function filterKernelExec() {
-            let matchesFoundCounter = 0;
-            
-            projectCards.forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                const titleText = card.getAttribute('data-title').toLowerCase();
-                const clientText = card.getAttribute('data-client').toLowerCase();
-                const customTags = card.getAttribute('data-tags').toLowerCase();
-                
-                const categoryMatch = (currentActiveCategory === 'All' || cardCategory === currentActiveCategory);
-                const queryMatch = (!currentSearchString || 
-                                     titleText.includes(currentSearchString) || 
-                                     clientText.includes(currentSearchString) || 
-                                     customTags.includes(currentSearchString));
-
-                if (categoryMatch && queryMatch) {
-                    card.style.display = 'block';
-                    matchesFoundCounter++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Handle Counter Label Syncing
-            projectCountLabel.textContent = `Showing ${matchesFoundCounter} project${matchesFoundCounter !== 1 ? 's' : ''}`;
-            
-            // Toggle Empty State Rendering
-            if (matchesFoundCounter === 0) {
-                emptyStateContainer.classList.remove('hidden');
-            } else {
-                emptyStateContainer.classList.add('hidden');
-            }
+        // Dynamic View Switching Mechanism
+        function openAllWorkView() {
+            homePage.classList.add('hidden');
+            allWorkPage.classList.remove('hidden');
+            mainNavLinks.classList.add('md:hidden');
+            allWorkViewBtn.textContent = 'Home';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderArchiveGrid();
         }
 
-        // Action Receivers Registry
-        searchBar.addEventListener('input', (e) => {
-            currentSearchString = e.target.value.toLowerCase().trim();
-            filterKernelExec();
-        });
+        function openHomeView() {
+            allWorkPage.classList.add('hidden');
+            homePage.classList.remove('hidden');
+            mainNavLinks.classList.remove('md:hidden');
+            allWorkViewBtn.textContent = 'All Work';
+        }
 
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                filterButtons.forEach(b => {
-                    b.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'active-filter');
-                    b.classList.add('glass-panel', 'opacity-80');
-                });
+        allWorkViewBtn.addEventListener('click', () => {
+            if (homePage.classList.contains('hidden')) { openHomeView(); } 
+            else { openAllWorkView(); }
+        });
+        navBrand.addEventListener('click', openHomeView);
+
+        // Accordion Animation Trigger Handler
+        document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const parent = trigger.closest('.accordion-item');
+                const isOpen = parent.classList.contains('accordion-open');
                 
-                e.target.classList.remove('glass-panel', 'opacity-80');
-                e.target.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'active-filter');
-                
-                currentActiveCategory = e.target.getAttribute('data-category');
-                filterKernelExec();
+                document.querySelectorAll('.accordion-item').forEach(item => item.classList.remove('accordion-open'));
+                if (!isOpen) { parent.classList.add('accordion-open'); }
             });
         });
+
+        // Dynamic Archive Component Matrix Rendering
+        function renderArchiveGrid() {
+            archiveGrid.innerHTML = '';
+            const filtered = ALL_PROJECTS.filter(p => {
+                const matchCat = activeCategory === 'All' || p.category === activeCategory;
+                const matchQuery = !searchQuery || p.title.toLowerCase().includes(searchQuery) || p.client.toLowerCase().includes(searchQuery);
+                return matchCat && matchQuery;
+            });
+
+            archiveCount.textContent = `${filtered.length} project${filtered.length !== 1 ? 's' : ''} ${activeCategory !== 'All' ? `in ${activeCategory}` : 'across all industries'}`;
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `glass-panel rounded-3xl p-6 shadow-3xs flex flex-col justify-between cursor-pointer hover:-translate-y-1 transition-transform bg-gradient-to-br ${p.color || 'from-transparent'} border-gray-400/10`;
+                card.setAttribute('onclick', `triggerCaseStudyModal("${p.title}")`);
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${p.platform === 'Mobile' ? 'bg-indigo-500/10 text-indigo-500' : 'bg-rose-500/10 text-rose-500'} inline-flex items-center gap-1">
+                                ${p.platform === 'Mobile' ? '<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>' : '<svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>'}
+                                ${p.platform}
+                            </span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-gray-500/10 opacity-60">${p.category}</span>
+                            ${p.featured ? '<span class="ml-auto px-2 py-0.5 rounded text-[9px] font-bold bg-indigo-600/10 text-indigo-500 tracking-wider uppercase">Featured</span>' : ''}
+                        </div>
+                        <h3 class="text-md font-bold">${p.title}</h3>
+                        <p class="text-xs opacity-50 mt-0.5">for ${p.client}</p>
+                        <p class="text-sm opacity-70 mt-3 leading-relaxed line-clamp-3">${p.desc}</p>
+                    </div>
+                    <div class="mt-6">
+                        <div class="flex flex-wrap gap-1.5 mb-2">
+                            ${p.tags.slice(0, 3).map(t => `<span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-60 rounded-full font-medium">${t}</span>`).join('')}
+                            ${p.tags.length > 3 ? `<span class="px-2 py-0.5 bg-gray-500/5 text-[10px] opacity-40 rounded-full font-medium">+${p.tags.length - 3}</span>` : ''}
+                        </div>
+                        <span class="text-[11px] font-medium opacity-40">Click to view case study</span>
+                    </div>
+                `;
+                archiveGrid.appendChild(card);
+            });
+        }
+
+        // Live Event Engine Registries for Archive Search/Filters
+        archiveSearch.addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            renderArchiveGrid();
+        });
+
+        archFilterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                archFilterButtons.forEach(b => {
+                    b.classList.remove('bg-black', 'text-white', 'dark:bg-white', 'dark:text-black');
+                    b.classList.add('glass-panel', 'opacity-70');
+                });
+                e.target.classList.remove('glass-panel', 'opacity-70');
+                e.target.classList.add('bg-black', 'text-white', 'dark:bg-white', 'dark:text-black');
+                
+                activeCategory = e.target.getAttribute('data-cat');
+                renderArchiveGrid();
+            });
+        });
+
+        // Case Study Modal Component Population Logic
+        window.triggerCaseStudyModal = function(projectTitle) {
+            const data = ALL_PROJECTS.find(p => p.title === projectTitle) || ALL_PROJECTS[3]; // Fallback to Orbit Workspace data mapping image 8
+            
+            const insightsList = data.insights || [
+                'Engineered core integration engine from bare components.',
+                'Designed strict enterprise security matrix conforming to internal guidelines.',
+                'Optimized async render threads reducing pipeline latency under 120ms.'
+            ];
+
+            modalContentSlot.innerHTML = `
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-500 rounded text-[10px] font-bold uppercase">${data.platform} App</span>
+                    <span class="px-2 py-0.5 bg-gray-500/10 opacity-60 rounded text-[10px] font-medium">${data.category}</span>
+                </div>
+                <h2 class="text-2xl font-bold tracking-tight mb-1">${data.title}</h2>
+                <p class="text-xs opacity-50 mb-4">Client: <span class="font-semibold text-slate-900 dark:text-white">${data.client}</span></p>
+                
+                <p class="text-sm opacity-70 leading-relaxed mb-6">${data.desc}</p>
+                
+                <h4 class="text-xs font-bold uppercase tracking-widest opacity-40 mb-3">Key Insights</h4>
+                <ul class="space-y-2.5 text-sm opacity-80 mb-6">
+                    ${insightsList.map(ins => `
+                        <li class="flex items-start gap-2.5 leading-relaxed">
+                            <svg class="w-4 h-4 text-indigo-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                            <span>${ins}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                
+                <h4 class="text-xs font-bold uppercase tracking-widest opacity-40 mb-3">Tech Stack</h4>
+                <div class="flex flex-wrap gap-1.5 mb-6">
+                    ${data.tags.map(t => `<span class="px-2.5 py-1 bg-gray-500/5 border border-gray-400/10 text-xs opacity-80 rounded-lg font-medium">${t}</span>`).join('')}
+                </div>
+                
+                <h4 class="text-xs font-bold uppercase tracking-widest opacity-40 mb-3">Gallery</h4>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="aspect-video rounded-xl bg-gray-500/5 border border-dashed border-gray-400/20 flex items-center justify-center text-[10px] opacity-30">Mockup 1</div>
+                    <div class="aspect-video rounded-xl bg-gray-500/5 border border-dashed border-gray-400/20 flex items-center justify-center text-[10px] opacity-30">Mockup 2</div>
+                    <div class="aspect-video rounded-xl bg-gray-500/5 border border-dashed border-gray-400/20 flex items-center justify-center text-[10px] opacity-30">Mockup 3</div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeCaseStudyModal = function() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
     </script>
 </body>
 </html>
