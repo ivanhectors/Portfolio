@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivan Sinambela — Portfolio</title>
+    
+    <!-- Google Fonts & Tailwind CSS v4 via CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        /* Base Setup & Premium Font */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* LIGHT MODE - Soft pearl/silver-white gradient feel */
+        :root {
+            --background: 210 20% 98%;
+            --foreground: 220 10% 10%;
+            --glass-panel-rgb: 255 255 255;
+            --glass-opacity: 0.65;
+            --glass-border-rgb: 255 255 255;
+            --glass-border-opacity: 0.8;
+            --orb-1: #e0e7ff;
+            --orb-2: #f3e8ff;
+            --orb-3: #c7d2fe;
+        }
+
+        /* DARK MODE - Deep navy-to-midnight gradient */
+        html.dark {
+            --background: 222 47% 4%;
+            --foreground: 210 40% 98%;
+            --glass-panel-rgb: 20 25 40;
+            --glass-opacity: 0.4;
+            --glass-border-rgb: 255 255 255;
+            --glass-border-opacity: 0.1;
+            --orb-1: #1e1b4b;
+            --orb-2: #0f172a;
+            --orb-3: #172554;
+        }
+
+        body {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+        }
+
+        /* Premium Glassmorphism Panel Effect */
+        .glass-panel {
+            background: rgba(var(--glass-panel-rgb) / var(--glass-opacity));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(var(--glass-border-rgb) / var(--glass-border-opacity));
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.05),
+                        inset 0 1px 0 0 rgba(255, 255, 255 / 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel-hover:hover {
+            background: rgba(var(--glass-panel-rgb) / calc(var(--glass-opacity) + 0.15));
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ambient Background Floating Orbs Animations */
+        @keyframes orb-float-1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(10vw, -15vh) scale(1.1); }
+            66% { transform: translate(-10vw, 15vh) scale(0.9); }
+        }
+        @keyframes orb-float-2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-15vw, 10vh) scale(0.95); }
+            66% { transform: translate(10vw, -10vh) scale(1.05); }
+        }
+        @keyframes orb-float-3 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(15vw, 15vh) scale(1.15); }
+            66% { transform: translate(-15vw, -15vh) scale(0.85); }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .orb-1 {
+            width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
+            background: radial-gradient(circle, var(--orb-1) 0%, transparent 70%);
+            top: -20vh; left: -20vw; animation: orb-float-1 25s ease-in-out infinite;
+        }
+        .orb-2 {
+            width: 50vw; height: 50vw; max-width: 600px; max-height: 600px;
+            background: radial-gradient(circle, var(--orb-2) 0%, transparent 70%);
+            bottom: -10vh; right: -10vw; animation: orb-float-2 30s ease-in-out infinite;
+        }
+        .orb-3 {
+            width: 45vw; height: 45vw; max-width: 500px; max-height: 500px;
+            background: radial-gradient(circle, var(--orb-3) 0%, transparent 70%);
+            top: 30vh; left: 30vw; animation: orb-float-3 35s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Background Ambient Elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="relative min-h-screen z-10 flex flex-col justify-between">
+        
+        <!-- Sticky Navigation Bar -->
+        <nav class="sticky top-0 z-40 px-4 md:px-8 py-4 flex justify-center">
+            <div class="w-full max-w-6xl flex items-center justify-between glass-panel rounded-2xl px-6 py-3">
+                <div class="flex items-center gap-4">
+                    <a href="#" class="inline-flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition-opacity">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                        Back
+                    </a>
+                    <span class="w-px h-4 bg-gray-400/20"></span>
+                    <span class="text-sm font-semibold tracking-wide">Ivan Sinambela</span>
+                </div>
+                
+                <!-- Dark Mode Toggle Switch Button -->
+                <button id="themeToggle" class="glass-panel p-2 rounded-xl hover:bg-gray-500/10 cursor-pointer" aria-label="Toggle Theme">
+                    <svg id="sunIcon" class="w-5 h-5 hidden text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M16.243 17.657l.707.707M6.343 6.344l.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z"/></svg>
+                    <svg id="moonIcon" class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Workspace Container -->
+        <main class="px-4 md:px-8 pt-12 pb-24 max-w-6xl w-full mx-auto flex-grow">
+            
+            <!-- Page Header Introduction Section -->
+            <div class="mb-12">
+                <p class="text-xs font-semibold uppercase tracking-widest text-indigo-500 mb-3">System Analyst & Business Analyst Portfolio</p>
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">All Work & Projects</h1>
+                <p class="opacity-60 max-w-xl leading-relaxed">Enterprise architecture, technical specifications documentation, and integration products built with rigorous execution standards.</p>
+            </div>
+
+            <!-- Client-Side Search Engine & Industry Filter Control Bar -->
+            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
+                <div class="relative w-full sm:w-64">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 opacity-40">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </span>
+                    <input id="searchBar" type="text" placeholder="Search projects..." class="w-full pl-9 pr-4 py-2.5 text-sm rounded-full glass-panel border-0 bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
+                </div>
+                
+                <!-- Category Tab Filters -->
+                <div id="filterContainer" class="flex gap-2 flex-wrap text-sm">
+                    <button class="filter-btn px-4 py-2 rounded-full font-medium bg-indigo-600 text-white shadow-md active-filter" data-category="All">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="Enterprise">Enterprise</button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="Fintech">Fintech</button>
+                    <button class="filter-btn px-4 py-2 rounded-full font-medium glass-panel opacity-80 hover:opacity-100" data-category="SaaS">SaaS</button>
+                </div>
+            </div>
+
+            <p id="projectCount" class="text-xs opacity-40 mb-8">Showing 3 projects</p>
+
+            <!-- Dynamic Project Grid Rendering -->
+            <div id="projectGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Card Item 1 (Contoh Data Suite) -->
+                <div class="project-card group cursor-pointer" data-title="MAXstream Technical Architecture" data-client="Telkomsel" data-category="SaaS" data-tags="TSD Integration API Contract AWS">
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Web Application
+                            </span>
+                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">SaaS</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-1">MAXstream Technical System Design</h3>
+                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for Telkomsel</p>
+                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Perancangan arsitektur backend berskala masif, penyusunan TSD, serta standarisasi dokumentasi kontrak API untuk integrasi sistem video streaming.</p>
+                        <div class="flex flex-wrap gap-1.5 mt-auto">
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">API Contract</span>
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Item 2 -->
+                <div class="project-card group cursor-pointer" data-title="BNI Life System Integration" data-client="Bank BNI Life" data-category="Fintech" data-tags="Technical Proposal System Architecture Firebase">
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg> Mobile Application
+                            </span>
+                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">Fintech</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-1">Bancassurance Core Integration</h3>
+                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for Bank BNI Life</p>
+                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Penyusunan proposal teknis komprehensif, pemetaan arsitektur lanskap bisnis perbankan, dan perencanaan sistem otomasi data klaim.</p>
+                        <div class="flex flex-wrap gap-1.5 mt-auto">
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Architecture</span>
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Item 3 -->
+                <div class="project-card group cursor-pointer" data-title="Samator Automation Tracker" data-client="PT Samator Indo Gas" data-category="Enterprise" data-tags="Google Apps Script System Landscape Automation">
+                    <div class="glass-panel glass-panel-hover rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-indigo-500/10 text-indigo-500 border border-indigo-500/20 flex items-center gap-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Web Application
+                            </span>
+                            <span class="text-[11px] opacity-50 bg-gray-500/10 px-2 py-0.5 rounded-full">Enterprise</span>
+                        </div>
+                        <h3 class="text-lg font-bold mb-1">Industrial Supply Chain Analytics</h3>
+                        <p class="text-xs text-indigo-500/80 font-medium mb-3">for PT Samator Indo Gas</p>
+                        <p class="text-sm opacity-70 leading-relaxed mb-6 flex-grow">Pengembangan sistem pelacakan otomatis data operasional menggunakan optimasi skrip sinkronisasi internal dan visualisasi dasbor terpadu.</p>
+                        <div class="flex flex-wrap gap-1.5 mt-auto">
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Apps Script</span>
+                            <span class="px-2 py-0.5 rounded-full bg-gray-500/5 border border-gray-400/10 text-[11px] opacity-60">Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty State Display -->
+            <div id="emptyState" class="hidden glass-panel rounded-2xl p-16 text-center mt-6">
+                <p class="opacity-40 text-lg font-medium">No projects found</p>
+                <p class="opacity-30 text-sm mt-1">Try a different search term or clear the current active filter.</p>
+            </div>
+        </main>
+
+        <!-- Footer Segment -->
+        <footer class="w-full text-center py-6 border-t border-gray-500/10 text-xs opacity-40">
+            <p>&copy; 2026 Ivan Sinambela. All Rights Reserved. Built with precision styling.</p>
+        </footer>
+    </div>
+
+    <!-- Core Runtime JavaScript Engine for Client Interaction (UX) -->
+    <script>
+        // DOM Handles Identification
+        const htmlElement = document.documentElement;
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const searchBar = document.getElementById('searchBar');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectCountLabel = document.getElementById('projectCount');
+        const emptyStateContainer = document.getElementById('emptyState');
+
+        let currentActiveCategory = 'All';
+        let currentSearchString = '';
+
+        // Dynamic Engine Theme Customizing
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            } else {
+                htmlElement.classList.add('dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            }
+        });
+
+        // Search & Filter Execution Kernel
+        function filterKernelExec() {
+            let matchesFoundCounter = 0;
+            
+            projectCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                const titleText = card.getAttribute('data-title').toLowerCase();
+                const clientText = card.getAttribute('data-client').toLowerCase();
+                const customTags = card.getAttribute('data-tags').toLowerCase();
+                
+                const categoryMatch = (currentActiveCategory === 'All' || cardCategory === currentActiveCategory);
+                const queryMatch = (!currentSearchString || 
+                                     titleText.includes(currentSearchString) || 
+                                     clientText.includes(currentSearchString) || 
+                                     customTags.includes(currentSearchString));
+
+                if (categoryMatch && queryMatch) {
+                    card.style.display = 'block';
+                    matchesFoundCounter++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Handle Counter Label Syncing
+            projectCountLabel.textContent = `Showing ${matchesFoundCounter} project${matchesFoundCounter !== 1 ? 's' : ''}`;
+            
+            // Toggle Empty State Rendering
+            if (matchesFoundCounter === 0) {
+                emptyStateContainer.classList.remove('hidden');
+            } else {
+                emptyStateContainer.classList.add('hidden');
+            }
+        }
+
+        // Action Receivers Registry
+        searchBar.addEventListener('input', (e) => {
+            currentSearchString = e.target.value.toLowerCase().trim();
+            filterKernelExec();
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'active-filter');
+                    b.classList.add('glass-panel', 'opacity-80');
+                });
+                
+                e.target.classList.remove('glass-panel', 'opacity-80');
+                e.target.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'active-filter');
+                
+                currentActiveCategory = e.target.getAttribute('data-category');
+                filterKernelExec();
+            });
+        });
+    </script>
+</body>
+</html>
